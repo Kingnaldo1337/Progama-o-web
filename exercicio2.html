@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1, label{
+            text-transform: capitalize;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2C3532;
+        }
+        #container{
+            max-width: 450px;
+            background-color: #D8B08C;
+            border-radius: 10px;
+            text-align: center;
+            justify-content: center;
+            box-shadow: 0px 0px 10px #1e2422;
+            padding: 20px
+        }
+        #lista{
+            margin-top: 10px;
+            background-color: #FFCB9A;
+            text-align: justify;
+            padding: 2px;
+            border-radius: 6px;
+        }
+    </style>
+    <title>TO DO LIST</title>
+</head>
+<body>
+
+    <section id="container">
+        <h1>to do list</h1>
+
+        <div id="add-tarefa">
+            <label for="tarefa">tarefa</label>
+            <input type="text" id="tarefa">
+            <input type="button" value="add" onclick="add()">
+        </div>
+
+        <div id="lista"></div>
+    </section>
+
+    <script>
+        var lista_de_tarefas = new Array() 
+
+        function add_tarefa(tarefa){ 
+            lista_de_tarefas.push(tarefa) 
+        }
+
+        function deletar(id){ 
+            lista_de_tarefas.splice(id, 1) 
+            listar(lista_de_tarefas) 
+        }
+
+        function listar(lista_de_tarefas){ 
+            document.getElementById("lista").innerHTML = ""
+
+            for (let i = 0; i < lista_de_tarefas.length; i++) { 
+                let lista = document.createElement("div")
+
+                lista.innerHTML = `${lista_de_tarefas[i]} <input type="button" id="deletar" value="Excluir" onclick="deletar(${i})">`
+                let tarefas = document.getElementById("lista")
+                tarefas.appendChild(lista)
+            }
+        }
+
+        function add(){ 
+            let tarefa = document.getElementById("tarefa")
+
+            if(tarefa.value.length == 0){ 
+                window.alert("Digite algum valor")
+                tarefa.focus()
+            }else{ 
+                let tarefa = document.getElementById("tarefa").value
+                add_tarefa(tarefa)
+                document.getElementById("tarefa").value = ""
+                listar(lista_de_tarefas)
+            }
+        }
+    </script>
+</body>
+</html>
